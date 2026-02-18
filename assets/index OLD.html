@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Ready — Careers & Employability</title>
+  <meta name="description" content="Scenario-based learning game for Year 12 CEM: megatrends and employability skills.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header__inner">
+      <a href="#" class="app-logo" aria-label="Emmanuel Catholic College">
+        <img src="assets/ECC_Logo.png" alt="Emmanuel Catholic College" class="app-logo__img">
+        <span class="app-logo__text">Emmanuel Catholic College · Future Ready</span>
+      </a>
+      <button type="button" id="btn-how-to-play" class="app-header__video" aria-expanded="false" aria-controls="how-to-play-panel">How to play</button>
+      <a href="https://www.dropbox.com/scl/fi/vg3jxajsvfvn7gjd3mmdq/ECC_Communications-Skills.mp4?rlkey=s35m15zvio5z8vapmrfkal74r&e=1&st=mmp70l00&dl=1" target="_blank" rel="noopener" class="app-header__video">Watch: Communications Skills</a>
+    </div>
+  </header>
+  <div id="context-strip" class="context-strip" hidden aria-live="polite"></div>
+  <div id="global-progress" class="global-progress" hidden aria-label="Progress">
+    <div class="global-progress__megatrends" id="progress-megatrends"></div>
+    <div class="global-progress__stage" id="progress-stage"></div>
+  </div>
+  <aside id="how-to-play-panel" class="how-to-play-panel" hidden aria-label="How to play">
+    <div class="how-to-play-panel__inner">
+      <h3>How to play</h3>
+      <ol>
+        <li>Choose <strong>Small/local organisation</strong> or <strong>Large organisation</strong> at the start.</li>
+        <li>For each of the four megatrends, answer the quiz (Explain/Describe) to unlock the scenario.</li>
+        <li>Read the scenario and pick one option. Your choice builds your Employability Score and skills.</li>
+        <li>After all four megatrends you’ll do one more scenario (Working with diversity), then see your final report and AT3-style draft.</li>
+      </ol>
+      <button type="button" id="btn-close-how-to-play" class="btn btn--secondary">Close</button>
+    </div>
+  </aside>
+  <div id="resume-prompt" class="modal" hidden aria-modal="true" aria-labelledby="resume-prompt-title">
+    <div class="modal__content">
+      <h2 id="resume-prompt-title">Resume or start new?</h2>
+      <p>You have saved progress. Resume or start a new game?</p>
+      <div class="modal__actions">
+        <button type="button" id="btn-resume" class="btn btn--primary">Resume</button>
+        <button type="button" id="btn-start-new" class="btn btn--secondary">Start new</button>
+      </div>
+    </div>
+  </div>
+  <div id="app" class="app">
+    <!-- Start screen: org choice and Start / Continue only -->
+    <section id="start" class="screen screen--start">
+      <div class="start-content start-content--minimal">
+        <div class="start-org-toggle">
+          <span class="start-org-label">I am playing as:</span>
+          <div class="toggle-group" role="group" aria-label="Organisation context">
+            <label class="toggle-option"><input type="radio" name="org-context" value="small" checked> Small or local organisation</label>
+            <label class="toggle-option"><input type="radio" name="org-context" value="large"> Large organisation</label>
+          </div>
+        </div>
+        <p class="start-org-hint">Choose your organisation context, then continue to your first scenario.</p>
+        <button type="button" id="btn-continue-to-scenario" class="btn btn--primary">Continue to scenario</button>
+      </div>
+    </section>
+    <!-- Welcome (content learning: summary then first megatrend quiz) -->
+    <section id="welcome" class="screen screen--welcome" hidden>
+      <header class="welcome-header">
+        <span class="badge">Year 12 · CEM Unit 3</span>
+        <h1 class="welcome-title">Future Ready</h1>
+        <p class="welcome-subtitle">The changing nature of work</p>
+      </header>
+      <div class="welcome-content">
+        <p class="welcome-intro">
+          You’re on placement. Each megatrend is a different challenge. Megatrends are large, global forces that impact how we live, work, communicate, and participate in society. In CEM you investigate four megatrends and how they affect the <strong>nature of work</strong>: work environments, types of employment, and emerging and declining jobs.
+        </p>
+        <div class="welcome-why">
+          <h2 class="welcome-why__title">Why this matters for you</h2>
+          <p class="welcome-why__hook">One day your job might not exist. The next, a job that doesn’t exist yet might be yours. The question isn’t whether work will change—it’s whether you’ll see it coming.</p>
+          <p>When industrialisation hit, people left the land: farming shrank, factories boomed. Automated checkouts pushed operator roles down—and sent delivery and click-and-collect packing roles up. Banks closed branches and cut tellers; home lenders and call centres grew. The work didn’t disappear. It <strong>moved</strong>. The types of jobs and the skills they need—that’s what keeps shifting.</p>
+          <p>This is about staying in the <strong>front seat</strong>. Seeing the curve before it hits. Anticipating, preparing, and grabbing the opportunities—instead of being blindsided by redundancies and "why didn’t anyone tell me?" It’s about learning to <strong>read</strong> what’s happening, spot <strong>threats and opportunities</strong>, and ask: <strong>What does this mean for me?</strong> Reskill? Upskill? Change direction?</p>
+          <p>In this game you’ll step into the pressure. Real scenarios, real stakes. Your choices will build—or cost you—the skills employers look for. You’re not just learning about megatrends. You’re practising the thinking that keeps you in the front seat.</p>
+        </div>
+        <ul class="megatrends-list">
+          <li><span class="pill pill--tech">Impactful technology</span></li>
+          <li><span class="pill pill--climate">Climate change</span></li>
+          <li><span class="pill pill--demographics">Demographic shifts</span></li>
+          <li><span class="pill pill--economic">Economic power shifts</span></li>
+        </ul>
+        <p class="welcome-skills">
+          You will use the unit’s employability skills: <strong>Communication</strong>, <strong>Teamwork</strong>, <strong>Problem solving</strong>, <strong>Digital literacy</strong>, <strong>Critical thinking</strong>, and <strong>Time management</strong>. There are no single “right” answers—each choice has trade-offs. Think it through, then continue to see the impact.
+        </p>
+        <ul class="skills-row" aria-label="Employability skills">
+          <li><span class="skill-pill"><img class="skill-pill__icon" src="assets/Communication Logo.png" alt="">Communication</span></li>
+          <li><span class="skill-pill"><img class="skill-pill__icon" src="assets/Teamwork Logo.png" alt="">Teamwork</span></li>
+          <li><span class="skill-pill"><img class="skill-pill__icon" src="assets/Problem Solving Logo.png" alt="">Problem solving</span></li>
+          <li><span class="skill-pill"><img class="skill-pill__icon" src="assets/Digital Literacy Logo.png" alt="">Digital literacy</span></li>
+          <li><span class="skill-pill"><img class="skill-pill__icon" src="assets/Critical Thinking Logo.png" alt="">Critical thinking</span></li>
+          <li><span class="skill-pill"><img class="skill-pill__icon" src="assets/Time Management Logo.png" alt="">Time management</span></li>
+        </ul>
+        <div class="first-megatrend-summary">
+          <h3 class="first-megatrend-summary__title"><span class="pill pill--tech">Impactful technology</span> — summary</h3>
+          <p><strong>Work environments:</strong> Growth in remote work, telecommuting and working from home; digitisation and automation change how and where people work.</p>
+          <p><strong>Types of employment:</strong> Increased workplace flexibility; growth in gig work, freelance and contract roles; hybrid and remote arrangements.</p>
+          <p><strong>Emerging jobs:</strong> Systems developer, data analyst, AI trainer, digital support roles. <strong>Declining jobs:</strong> Many administrative, clerical and routine data-entry roles as tasks are automated.</p>
+          <p>In small organisations (e.g. local firm), staff may need to upskill in cloud-based software (Xero, MYOB) and digital literacy. In large organisations (e.g. mining), new roles include drone operators, AI technicians and remote operations; some traditional roles are replaced by automation.</p>
+        </div>
+        <p class="welcome-note">Prove your understanding with quiz questions (command verbs <strong>Explain</strong> and <strong>Describe</strong>). Then unlock the scenario.</p>
+        <button type="button" id="btn-welcome-continue" class="btn btn--primary">Continue</button>
+      </div>
+    </section>
+
+    <!-- Quiz (prove understanding before scenario) -->
+    <section id="quiz" class="screen screen--quiz" hidden>
+      <div class="quiz-progress">
+        <span id="quiz-progress-text" class="scenario-progress-text">Question 1 of 6</span>
+      </div>
+      <div class="scenario-card">
+        <span id="quiz-badge" class="badge badge--scenario"></span>
+        <p class="quiz-command-hint">Command word (as in assessment):</p>
+        <p id="quiz-command" class="quiz-command"></p>
+        <h2 id="quiz-question" class="quiz-question"></h2>
+        <div id="quiz-options" class="quiz-options"></div>
+        <textarea id="quiz-shortanswer" class="quiz-shortanswer" rows="4" placeholder="Type your answer (use unit keywords)." hidden></textarea>
+        <div class="quiz-nav">
+          <button type="button" id="quiz-prev" class="btn btn--secondary">Previous</button>
+          <button type="button" id="quiz-next" class="btn btn--primary">Next question</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiz result (pass / retry / continue to scenario) -->
+    <section id="quiz-result" class="screen screen--feedback" hidden>
+      <div class="feedback-card">
+        <span id="quiz-result-badge" class="badge badge--scenario"></span>
+        <h2 class="feedback-title">Quiz result</h2>
+        <p id="quiz-result-score" class="feedback-body"></p>
+        <p id="quiz-result-pct" class="feedback-body"></p>
+        <p id="quiz-result-passed" class="quiz-result-msg">You have unlocked the scenario. Click Continue to apply your understanding in a decision.</p>
+        <p id="quiz-result-failed" class="quiz-result-msg">Review the unit (activities 6A–6E) and try again. You need a passing score and a short answer that uses unit keywords and explains in your own words.</p>
+        <div class="quiz-result-actions">
+          <button type="button" id="btn-quiz-retry" class="btn btn--secondary">Retry quiz</button>
+          <button type="button" id="btn-quiz-continue" class="btn btn--primary">Continue to scenario</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scenario (reused for each scenario) -->
+    <section id="scenario" class="screen screen--scenario" hidden>
+      <div class="scenario-progress">
+        <span class="scenario-progress-text">Scenario <span id="scenario-num">1</span> of <span id="scenario-total">5</span></span>
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <div id="progress-fill" class="progress-bar__fill"></div>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <p id="scenario-context" class="scenario-context" aria-hidden="true"></p>
+        <span id="scenario-badge" class="badge badge--scenario"></span>
+        <h2 id="scenario-title" class="scenario-title"></h2>
+        <div id="scenario-story" class="scenario-story"></div>
+        <p class="scenario-prompt">What do you do?</p>
+        <ul id="choices-list" class="choices-list" role="list"></ul>
+      </div>
+    </section>
+
+    <!-- Feedback (after a choice): structured feedback + dashboard deltas + one-liner -->
+    <section id="feedback" class="screen screen--feedback" hidden>
+      <div class="feedback-card">
+        <span id="feedback-badge" class="badge badge--scenario"></span>
+        <h2 id="feedback-title" class="feedback-title"></h2>
+        <p id="feedback-consequence" class="feedback-consequence" aria-live="polite"></p>
+        <p id="feedback-tradeoff" class="feedback-tradeoff" hidden aria-live="polite"></p>
+        <div id="feedback-megatrend" class="feedback-structured"></div>
+        <div id="feedback-why" class="feedback-structured"></div>
+        <div id="feedback-skill-built" class="feedback-structured"></div>
+        <div id="feedback-skills" class="feedback-skills"></div>
+        <div id="feedback-deltas" class="feedback-deltas" aria-live="polite"></div>
+        <p id="feedback-one-liner" class="feedback-one-liner"></p>
+        <p id="feedback-reflect" class="feedback-reflect" hidden>What would you do differently? (Think about it—no need to type anything.)</p>
+        <div id="dashboard-mini" class="dashboard-mini"></div>
+        <button type="button" id="btn-next" class="btn btn--primary">Continue</button>
+      </div>
+    </section>
+
+    <!-- Summary / End (win / celebration) -->
+    <section id="summary" class="screen screen--summary" hidden>
+      <header class="summary-header">
+        <h1 class="summary-title">You’ve completed Future Ready</h1>
+        <p class="summary-subtitle summary-subtitle--celebrate">You’ve practised reading scenarios and staying in the front seat.</p>
+        <p class="summary-next-step">Your next step: use your final report and AT3-style draft below.</p>
+      </header>
+      <div class="summary-content">
+        <div class="summary-section">
+          <h3>Megatrends you encountered</h3>
+          <ul id="summary-megatrends" class="summary-tags"></ul>
+        </div>
+        <div class="summary-section">
+          <h3>Employability skills you used</h3>
+          <ul id="summary-skills" class="summary-tags"></ul>
+        </div>
+        <button type="button" id="btn-view-report" class="btn btn--primary">View final report</button>
+      </div>
+    </section>
+
+    <section id="report" class="screen screen--report" hidden>
+      <header class="summary-header">
+        <h1 class="summary-title">Final report</h1>
+        <p class="summary-subtitle">Use this for AT3 and reflection</p>
+      </header>
+      <div class="report-content">
+        <div id="report-dashboard" class="report-dashboard"></div>
+        <div class="report-section">
+          <h3>Choices by megatrend</h3>
+          <div id="report-choices" class="report-choices"></div>
+        </div>
+        <div class="report-section">
+          <h3>Strongest and weakest employability skills</h3>
+          <div id="report-skills-summary" class="report-skills-summary"></div>
+          <p id="report-next-time" class="report-next-time"></p>
+        </div>
+        <div class="report-section">
+          <h3>AT3-style draft (copy into your response)</h3>
+          <p class="report-hint">Impact on work environments, types of employment, emerging/declining jobs, career impact (12 months, 2–5 years, 5+ years).</p>
+          <textarea id="report-at3-draft" class="report-at3-draft" rows="10" readonly></textarea>
+        </div>
+        <div class="report-section">
+          <h3>Reflection questions (exit ticket)</h3>
+          <ol id="report-reflection" class="report-reflection"></ol>
+        </div>
+        <div class="report-actions">
+          <button type="button" id="btn-restart" class="btn btn--primary">Restart game</button>
+          <button type="button" id="btn-clear-progress" class="btn btn--secondary">Clear saved progress</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Employability skills icons (Emmanuel Catholic College style; replace with official icons from Employability Skills Icons PDF if desired) -->
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;">
+    <defs>
+      <symbol id="icon-communication" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+      <symbol id="icon-teamwork" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="icon-problem-solving" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 0 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></symbol>
+      <symbol id="icon-digital-literacy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+      <symbol id="icon-enterprising" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></symbol>
+      <symbol id="icon-critical-thinking" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></symbol>
+    </defs>
+  </svg>
+
+  <script src="game.js"></script>
+</body>
+</html>
